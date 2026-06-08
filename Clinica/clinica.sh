@@ -292,12 +292,45 @@ cancelar_consulta() {
     
     read -p "Digite o nome do paciente cuja consulta deseja cancelar: " paciente_cancel
     
-    if grep -q "^$paciente_cancel|" "$ARQUIVO_CONSULTAS"; then
-        grep -v "^$paciente_cancel|" "$ARQUIVO_CONSULTAS" > "$ARQUIVO_CONSULTAS.tmp"
-        mv "$ARQUIVO_CONSULTAS.tmp" "$ARQUIVO_CONSULTAS"
-        echo -e "${GREEN}✓ Consulta cancelada com sucesso!${NC}"
-    else
+    if [ -z "$paciente_cancel" ]; then
+        echo -e "${RED}✗ Nome do paciente não pode estar vazio!${NC}"
+        read -p "Pressione ENTER para continuar..."
+        return
+    fi
+    
+    # Procurar consulta do paciente
+    resultado=$(grep -i "^$paciente_cancel|" "$ARQUIVO_CONSULTAS")
+    
+    if [ -z "$resultado" ]; then
         echo -e "${RED}✗ Nenhuma consulta encontrada para esse paciente.${NC}"
+    else
+        echo ""
+        echo -e "${YELLOW}Consulta a ser cancelada:${NC}"
+        echo "────────────────────────────────────────────────────────"
+        echo "$resultado" | while IFS='|' read -r paciente medico data horario; do
+            echo "Paciente: $paciente"
+            echo "Médico: $medico"
+            echo "Data: $data"
+            echo "Horário: $horario"
+        done
+        echo "────────────────────────────────────────────────────────"
+        echo ""
+        
+        # Confirmação antes de cancelar (BRONZE)
+        read -p "Deseja realmente remover esta consulta? [s/n]: " confirmacao
+        
+        if [ "$confirmacao" = "s" ] || [ "$confirmacao" = "S" ]; then
+            # Backup da consulta antes de remover
+            echo "$resultado" >> "$BACKUP_DIR/consultas_canceladas_$(date +%Y%m%d_%H%M%S).bak"
+            
+            # Remover consulta do arquivo
+            grep -iv "^$paciente_cancel|" "$ARQUIVO_CONSULTAS" > "$ARQUIVO_CONSULTAS.tmp"
+            mv "$ARQUIVO_CONSULTAS.tmp" "$ARQUIVO_CONSULTAS"
+            
+            echo -e "${GREEN}✓ Consulta cancelada com sucesso!${NC}"
+        else
+            echo -e "${YELLOW}Operação cancelada.${NC}"
+        fi
     fi
     
     echo ""
