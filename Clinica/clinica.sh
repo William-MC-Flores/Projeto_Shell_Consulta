@@ -217,24 +217,66 @@ listar_consultas() {
 pesquisar_consulta() {
     echo -e "${GREEN}=== PESQUISAR CONSULTA ===${NC}"
     echo ""
+    echo "Pesquisar por:"
+    echo "  1 - Paciente"
+    echo "  2 - Médico"
+    echo "  3 - Data"
+    echo ""
     
-    read -p "Digite o nome do paciente para pesquisar: " termo_busca
+    read -p "Escolha uma opção (1-3): " tipo_busca
+    
+    case $tipo_busca in
+        1)
+            read -p "Digite o nome do paciente: " termo_busca
+            tipo="paciente"
+            campo=1
+            ;;
+        2)
+            read -p "Digite o nome do médico: " termo_busca
+            tipo="médico"
+            campo=2
+            ;;
+        3)
+            read -p "Digite a data (DD/MM/YYYY): " termo_busca
+            tipo="data"
+            campo=3
+            ;;
+        *)
+            echo -e "${RED}✗ Opção inválida!${NC}"
+            read -p "Pressione ENTER para continuar..."
+            return
+            ;;
+    esac
     
     echo ""
-    resultado=$(grep -i "$termo_busca" "$ARQUIVO_CONSULTAS")
+    echo -e "${BLUE}Resultados da busca por $tipo: ${NC}"
+    
+    # Usar awk para buscar no campo específico
+    resultado=$(awk -F'|' -v campo=$campo -v termo="$termo_busca" \
+        'tolower($campo) ~ tolower(termo) { print }' "$ARQUIVO_CONSULTAS")
     
     if [ -z "$resultado" ]; then
         echo -e "${YELLOW}Nenhuma consulta encontrada para: $termo_busca${NC}"
     else
-        echo -e "${BLUE}Resultados da busca:${NC}"
-        echo "────────────────────────────────────────────────────────"
+        echo ""
+        echo -e "${BLUE}╔════════════════════╦════════════════════╦═══════════╦═════════╗${NC}"
+        echo -e "${BLUE}║ Paciente           ║ Médico             ║ Data      ║ Horário ║${NC}"
+        echo -e "${BLUE}╠════════════════════╬════════════════════╬═══════════╬═════════╣${NC}"
+        
+        contador=0
         echo "$resultado" | while IFS='|' read -r paciente medico data horario; do
-            echo "Paciente: $paciente"
-            echo "Médico: $medico"
-            echo "Data: $data"
-            echo "Horário: $horario"
-            echo "────────────────────────────────────────────────────────"
+            paciente_fmt=$(printf "%-18s" "$paciente" | cut -c1-18)
+            medico_fmt=$(printf "%-18s" "$medico" | cut -c1-18)
+            
+            printf "${BLUE}║${NC} %-18s ${BLUE}║${NC} %-18s ${BLUE}║${NC} %-9s ${BLUE}║${NC} %-7s ${BLUE}║${NC}\n" \
+                "$paciente_fmt" "$medico_fmt" "$data" "$horario"
+            
+            contador=$((contador + 1))
         done
+        
+        echo -e "${BLUE}╚════════════════════╩════════════════════╩═══════════╩═════════╝${NC}"
+        echo ""
+        echo -e "${GREEN}✓ Total de resultados: $(echo "$resultado" | wc -l)${NC}"
     fi
     
     echo ""
