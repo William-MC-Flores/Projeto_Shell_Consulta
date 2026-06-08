@@ -19,6 +19,47 @@ CONSULTAS_DIR="$SCRIPT_DIR/consultas"
 RELATORIOS_DIR="$SCRIPT_DIR/relatorios"
 BACKUP_DIR="$SCRIPT_DIR/backup"
 ARQUIVO_CONSULTAS="$CONSULTAS_DIR/consultas.txt"
+ARQUIVO_SENHA="$SCRIPT_DIR/.senha"
+SENHA_PADRAO="1234"  # Senha padrão do sistema
+USUARIO_LOGADO=false
+
+################################################################################
+# FUNÇÃO: Autenticar usuário com senha (PRATA +1.0)
+################################################################################
+autenticar_usuario() {
+    clear
+    echo -e "${BLUE}"
+    echo "╔════════════════════════════════════════════════════════╗"
+    echo "║     SISTEMA DE AGENDAMENTO DE CONSULTAS - LOGIN 🔐     ║"
+    echo "╚════════════════════════════════════════════════════════╝"
+    echo -e "${NC}"
+    echo ""
+    
+    # Tentar login até 3 vezes
+    tentativas=3
+    
+    while [ $tentativas -gt 0 ]; do
+        read -sp "Digite a senha para acessar o sistema: " senha
+        echo ""
+        
+        if [ "$senha" = "$SENHA_PADRAO" ]; then
+            echo -e "${GREEN}✓ Autenticação bem-sucedida!${NC}"
+            USUARIO_LOGADO=true
+            sleep 1
+            return 0
+        else
+            tentativas=$((tentativas - 1))
+            if [ $tentativas -gt 0 ]; then
+                echo -e "${RED}✗ Senha incorreta! Tentativas restantes: $tentativas${NC}"
+                echo ""
+            fi
+        fi
+    done
+    
+    echo -e "${RED}✗ Acesso negado! Limite de tentativas excedido.${NC}"
+    sleep 2
+    exit 1
+}
 
 ################################################################################
 # FUNÇÃO: Inicializar ambiente
@@ -451,6 +492,9 @@ gerar_relatorio() {
 # FUNÇÃO: Loop principal
 ################################################################################
 main() {
+    # Autenticar usuário antes de acessar o sistema (PRATA)
+    autenticar_usuario
+    
     inicializar_ambiente
     
     while true; do
