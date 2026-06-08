@@ -188,11 +188,23 @@ listar_consultas() {
     if [ ! -s "$ARQUIVO_CONSULTAS" ]; then
         echo -e "${YELLOW}Nenhuma consulta agendada.${NC}"
     else
-        echo -e "${BLUE}Paciente${NC} | ${BLUE}Médico${NC} | ${BLUE}Data${NC} | ${BLUE}Horário${NC}"
-        echo "────────────────────────────────────────────────────────"
+        local contador=1
+        echo -e "${BLUE}╔═══╦════════════════════╦════════════════════╦═══════════╦═════════╗${NC}"
+        echo -e "${BLUE}║ # ║ Paciente           ║ Médico             ║ Data      ║ Horário ║${NC}"
+        echo -e "${BLUE}╠═══╬════════════════════╬════════════════════╬═══════════╬═════════╣${NC}"
+        
         cat "$ARQUIVO_CONSULTAS" | while IFS='|' read -r paciente medico data horario; do
-            echo "$paciente | $medico | $data | $horario"
+            # Truncar nomes muito longos
+            paciente_fmt=$(printf "%-18s" "$paciente" | cut -c1-18)
+            medico_fmt=$(printf "%-18s" "$medico" | cut -c1-18)
+            
+            printf "${BLUE}║${NC} %1d ${BLUE}║${NC} %-18s ${BLUE}║${NC} %-18s ${BLUE}║${NC} %-9s ${BLUE}║${NC} %-7s ${BLUE}║${NC}\n" \
+                "$contador" "$paciente_fmt" "$medico_fmt" "$data" "$horario"
+            
+            contador=$((contador + 1))
         done
+        
+        echo -e "${BLUE}╚═══╩════════════════════╩════════════════════╩═══════════╩═════════╝${NC}"
     fi
     
     echo ""
