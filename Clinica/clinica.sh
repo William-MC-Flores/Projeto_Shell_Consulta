@@ -30,7 +30,7 @@ autenticar_usuario() {
     clear
     echo -e "${BLUE}"
     echo "╔════════════════════════════════════════════════════════╗"
-    echo "║     SISTEMA DE AGENDAMENTO DE CONSULTAS - LOGIN 🔐     ║"
+    echo "║     SISTEMA DE AGENDAMENTO DE CONSULTAS - LOGIN       ║"
     echo "╚════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
     echo ""
@@ -43,20 +43,20 @@ autenticar_usuario() {
         echo ""
         
         if [ "$senha" = "$SENHA_PADRAO" ]; then
-            echo -e "${GREEN}✓ Autenticação bem-sucedida!${NC}"
+            echo -e "${GREEN}Autenticação bem-sucedida!${NC}"
             USUARIO_LOGADO=true
             sleep 1
             return 0
         else
             tentativas=$((tentativas - 1))
             if [ $tentativas -gt 0 ]; then
-                echo -e "${RED}✗ Senha incorreta! Tentativas restantes: $tentativas${NC}"
+                echo -e "${RED}Senha incorreta! Tentativas restantes: $tentativas${NC}"
                 echo ""
             fi
         fi
     done
     
-    echo -e "${RED}✗ Acesso negado! Limite de tentativas excedido.${NC}"
+    echo -e "${RED}Acesso negado! Limite de tentativas excedido.${NC}"
     sleep 2
     exit 1
 }
@@ -148,7 +148,7 @@ exibir_menu() {
     clear
     echo -e "${BLUE}"
     echo "╔════════════════════════════════════════════════════════╗"
-    echo "║        SISTEMA DE AGENDAMENTO DE CONSULTAS 🏥          ║"
+    echo "║        SISTEMA DE AGENDAMENTO DE CONSULTAS            ║"
     echo "╚════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
     echo ""
@@ -174,7 +174,7 @@ agendar_consulta() {
     # Leitura do nome do paciente
     read -p "Nome do paciente: " paciente
     if [ -z "$paciente" ]; then
-        echo -e "${RED}✗ Nome do paciente não pode estar vazio!${NC}"
+        echo -e "${RED}Nome do paciente não pode estar vazio!${NC}"
         read -p "Pressione ENTER para continuar..."
         return
     fi
@@ -182,7 +182,7 @@ agendar_consulta() {
     # Leitura do nome do médico
     read -p "Nome do médico: " medico
     if [ -z "$medico" ]; then
-        echo -e "${RED}✗ Nome do médico não pode estar vazio!${NC}"
+        echo -e "${RED}Nome do médico não pode estar vazio!${NC}"
         read -p "Pressione ENTER para continuar..."
         return
     fi
@@ -193,7 +193,7 @@ agendar_consulta() {
         if validar_data "$data"; then
             break
         else
-            echo -e "${RED}✗ Formato de data inválido! Use DD/MM/YYYY${NC}"
+            echo -e "${RED}Formato de data inválido! Use DD/MM/YYYY${NC}"
         fi
     done
     
@@ -203,14 +203,14 @@ agendar_consulta() {
         if validar_horario "$horario"; then
             break
         else
-            echo -e "${RED}✗ Formato de horário inválido! Use HH:MM (00:00 a 23:59)${NC}"
+            echo -e "${RED}Formato de horário inválido! Use HH:MM (00:00 a 23:59)${NC}"
         fi
     done
     
     # Salvar consulta no arquivo
     echo "$paciente|$medico|$data|$horario" >> "$ARQUIVO_CONSULTAS"
     
-    echo -e "${GREEN}✓ Consulta agendada com sucesso!${NC}"
+    echo -e "${GREEN}Consulta agendada com sucesso!${NC}"
     echo "  Paciente: $paciente"
     echo "  Médico: $medico"
     echo "  Data: $data"
@@ -283,7 +283,7 @@ pesquisar_consulta() {
             campo=3
             ;;
         *)
-            echo -e "${RED}✗ Opção inválida!${NC}"
+            echo -e "${RED}Opção inválida!${NC}"
             read -p "Pressione ENTER para continuar..."
             return
             ;;
@@ -317,7 +317,7 @@ pesquisar_consulta() {
         
         echo -e "${BLUE}╚════════════════════╩════════════════════╩═══════════╩═════════╝${NC}"
         echo ""
-        echo -e "${GREEN}✓ Total de resultados: $(echo "$resultado" | wc -l)${NC}"
+        echo -e "${GREEN}Total de resultados: $(echo "$resultado" | wc -l)${NC}"
     fi
     
     echo ""
@@ -334,7 +334,7 @@ cancelar_consulta() {
     read -p "Digite o nome do paciente cuja consulta deseja cancelar: " paciente_cancel
     
     if [ -z "$paciente_cancel" ]; then
-        echo -e "${RED}✗ Nome do paciente não pode estar vazio!${NC}"
+        echo -e "${RED}Nome do paciente não pode estar vazio!${NC}"
         read -p "Pressione ENTER para continuar..."
         return
     fi
@@ -343,7 +343,7 @@ cancelar_consulta() {
     resultado=$(grep -i "^$paciente_cancel|" "$ARQUIVO_CONSULTAS")
     
     if [ -z "$resultado" ]; then
-        echo -e "${RED}✗ Nenhuma consulta encontrada para esse paciente.${NC}"
+        echo -e "${RED}Nenhuma consulta encontrada para esse paciente.${NC}"
     else
         echo ""
         echo -e "${YELLOW}Consulta a ser cancelada:${NC}"
@@ -368,7 +368,7 @@ cancelar_consulta() {
             grep -iv "^$paciente_cancel|" "$ARQUIVO_CONSULTAS" > "$ARQUIVO_CONSULTAS.tmp"
             mv "$ARQUIVO_CONSULTAS.tmp" "$ARQUIVO_CONSULTAS"
             
-            echo -e "${GREEN}✓ Consulta cancelada com sucesso!${NC}"
+            echo -e "${GREEN}Consulta cancelada com sucesso!${NC}"
         else
             echo -e "${YELLOW}Operação cancelada.${NC}"
         fi
@@ -481,7 +481,7 @@ gerar_relatorio() {
                 done
         } > "$arquivo_relatorio"
         
-        echo -e "${GREEN}✓ Relatório salvo em: $arquivo_relatorio${NC}"
+        echo -e "${GREEN}Relatório salvo em: $arquivo_relatorio${NC}"
     fi
     
     echo ""
@@ -498,7 +498,7 @@ backup_automatico() {
         
         cp "$ARQUIVO_CONSULTAS" "$arquivo_backup"
         
-        echo -e "${GREEN}✓ Backup automático realizado com sucesso!${NC}"
+        echo -e "${GREEN}Backup automático realizado com sucesso!${NC}"
         echo "  Arquivo: $arquivo_backup"
     fi
 }
@@ -538,11 +538,11 @@ main() {
                 backup_automatico
                 echo ""
                 echo -e "${BLUE}Encerrando sistema...${NC}"
-                echo -e "${GREEN}Até logo! 👋${NC}"
+                echo -e "${GREEN}Até logo!${NC}"
                 exit 0
                 ;;
             *)
-                echo -e "${RED}✗ Opção inválida! Digite uma opção de 0 a 5.${NC}"
+                echo -e "${RED}Opção inválida! Digite uma opção de 0 a 5.${NC}"
                 read -p "Pressione ENTER para continuar..."
                 ;;
         esac

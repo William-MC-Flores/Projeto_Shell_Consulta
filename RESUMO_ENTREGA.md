@@ -1,14 +1,14 @@
-# ✅ PROJETO CONCLUÍDO - RESUMO DE ENTREGA
+# PROJETO CONCLUÍDO - RESUMO DE ENTREGA
 
-## 🎯 Status do Projeto
+## Status do Projeto
 
-**Estado:** ✅ COMPLETO E PRONTO PARA PUSH  
+**Estado:** COMPLETO E PRONTO PARA PUSH  
 **Data de Conclusão:** 08/06/2026  
 **Grupo:** Grupo 6 - Sistema de Agendamento de Consultas  
 
 ---
 
-## 📊 Resumo de Commits
+## Resumo de Commits
 
 ```
 Total de Commits: 12
@@ -17,7 +17,7 @@ Total de Commits: 12
 ├─ 3 commits de pontos extras (feat com badges)
 └─ 3 commits de documentação (docs)
 
-Working Tree: CLEAN ✅
+Working Tree: CLEAN
 Ahead of origin/main: 12 commits
 ```
 
@@ -25,7 +25,7 @@ Ahead of origin/main: 12 commits
 
 ## 🏆 Requisitos Atendidos
 
-### ✅ Elementos Obrigatórios (100%)
+### Elementos Obrigatórios (100%)
 - [x] Variáveis
 - [x] Entrada de dados
 - [x] Saída de dados
@@ -33,43 +33,43 @@ Ahead of origin/main: 12 commits
 - [x] Estrutura de repetição (while/for)
 - [x] Menu interativo (0-5 numerado)
 
-### ✅ Funcionalidades Obrigatórias (100%)
+### Funcionalidades Obrigatórias (100%)
 - [x] Agendar consulta
 - [x] Listar consultas
 - [x] Pesquisar consulta
 - [x] Cancelar consulta
 - [x] Relatório
 
-### ✅ Dados Gerenciados (100%)
+### Dados Gerenciados (100%)
 - [x] Paciente
 - [x] Médico
 - [x] Data
 - [x] Horário
 
-### ✅ Estrutura de Diretórios (100%)
+### Estrutura de Diretórios (100%)
 ```
 Clinica/
-├── consultas/       ✅
-├── relatorios/      ✅
-└── backup/          ✅
+├── consultas/
+├── relatorios/
+└── backup/
 ```
 
 ---
 
-## ⭐ Pontos Extras Implementados
+## Pontos Extras Implementados
 
 | Nível | Pontos | Status | Implementação |
 |-------|--------|--------|----------------|
-| 🥉 Bronze | +0,5 | ✅ | Confirmação [s/n] antes de cancelar (linhas 310-312) |
-| 🥈 Prata | +1,0 | ✅ | Autenticação por senha (linhas 30-71) |
-| 🥇 Ouro | +1,5 | ✅ | Backup automático ao sair (linhas 433-443) |
-| 💎 Diamante | +2,0 | ✅ | Submenus + Estatísticas (pesquisa e relatório) |
+| Bronze | +0,5 | Sim | Confirmação [s/n] antes de cancelar (linhas 310-312) |
+| Prata | +1,0 | Sim | Autenticação por senha (linhas 30-71) |
+| Ouro | +1,5 | Sim | Backup automático ao sair (linhas 433-443) |
+| Diamante | +2,0 | Sim | Submenus + Estatísticas (pesquisa e relatório) |
 
-**Total de Pontos Extras: +5,0 pontos** 🎉
+**Total de Pontos Extras: +5,0 pontos**
 
 ---
 
-## 📁 Arquivos do Projeto
+## Arquivos do Projeto
 
 ### Código Principal
 ```
@@ -109,12 +109,12 @@ Clinica/RELATORIO_TECNICO.md (492 linhas)
 
 ---
 
-## 🔐 Funcionalidades Especiais
+## Funcionalidades Especiais
 
 ### 1. Menu Interativo (Principal)
 ```
 ╔════════════════════════════════════════════════════════╗
-║        SISTEMA DE AGENDAMENTO DE CONSULTAS 🏥          ║
+║        SISTEMA DE AGENDAMENTO DE CONSULTAS            ║
 ╚════════════════════════════════════════════════════════╝
 
 Escolha uma opção:
@@ -128,9 +128,9 @@ Escolha uma opção:
 
 ### 2. Autenticação por Senha (PRATA)
 ```
-SISTEMA DE AGENDAMENTO DE CONSULTAS - LOGIN 🔐
+SISTEMA DE AGENDAMENTO DE CONSULTAS - LOGIN
 Digite a senha para acessar o sistema: ****
-✓ Autenticação bem-sucedida!
+Autenticação bem-sucedida!
 (até 3 tentativas)
 ```
 
@@ -179,31 +179,31 @@ MÉDICO COM MAIS CONSULTAS:
 ### 6. Backup Automático (OURO)
 ```
 Realizando backup automático...
-✓ Backup automático realizado com sucesso!
+Backup automático realizado com sucesso!
   Arquivo: backup/backup_consultas_20260608_140530.txt
 
 Encerrando sistema...
-Até logo! 👋
+Até logo!
 ```
 
 ---
 
-## 🛡️ Validações Implementadas
+## Validações Implementadas
 
-- ✅ Campos obrigatórios não vazios
-- ✅ Formato de data DD/MM/YYYY
-- ✅ Dias entre 01-31
-- ✅ Meses entre 01-12
-- ✅ Formato de horário HH:MM
-- ✅ Horas entre 00-23
-- ✅ Minutos entre 00-59
-- ✅ Opções de menu válidas
-- ✅ Autenticação com limite de tentativas
-- ✅ Confirmação antes de cancelar
+ - Campos obrigatórios não vazios
+ - Formato de data DD/MM/YYYY
+ - Dias entre 01-31
+ - Meses entre 01-12
+ - Formato de horário HH:MM
+ - Horas entre 00-23
+ - Minutos entre 00-59
+ - Opções de menu válidas
+ - Autenticação com limite de tentativas
+ - Confirmação antes de cancelar
 
 ---
 
-## 📊 Estatísticas do Código
+## Estatísticas do Código
 
 | Métrica | Valor |
 |---------|-------|
@@ -219,7 +219,7 @@ Até logo! 👋
 
 ---
 
-## 🎓 Conceitos Shell Script Demonstrados
+## Conceitos Shell Script Demonstrados
 
 - Variáveis e escopo local
 - Funções com parâmetros
@@ -257,7 +257,7 @@ ae208ff init: Criar estrutura de diretórios do projeto
 
 ---
 
-## 🚀 Como Fazer Push
+## Como Fazer Push
 
 Quando estiver pronto, execute:
 
@@ -276,7 +276,7 @@ git push -f origin main
 
 ---
 
-## ✨ Destaques da Implementação
+## Destaques da Implementação
 
 1. **Commits Semânticos**: Cada commit representa uma funcionalidade completa
 2. **Documentação Completa**: 3 arquivos de documentação detalhada
@@ -289,7 +289,7 @@ git push -f origin main
 
 ---
 
-## 📋 Checklist de Entrega - TUDO COMPLETO ✅
+## Checklist de Entrega - TUDO COMPLETO
 
 - [x] Fluxograma do sistema (FLUXOGRAMA.md)
 - [x] Código-fonte comentado (clinica.sh)
@@ -304,9 +304,9 @@ git push -f origin main
 
 ---
 
-## 🎉 PROJETO FINALIZADO COM SUCESSO!
+## PROJETO FINALIZADO COM SUCESSO!
 
-**Status Final:** ✅ PRONTO PARA APRESENTAÇÃO E PUSH
+**Status Final:** PRONTO PARA APRESENTAÇÃO E PUSH
 
 ---
 

@@ -1,16 +1,16 @@
-# 🏥 Sistema de Agendamento de Consultas - Shell Script
+# Sistema de Agendamento de Consultas - Shell Script
 
-## 📌 Visão Geral
+## Visão Geral
 
 Sistema completo de gerenciamento de consultas médicas desenvolvido em **Shell Script**, implementando todos os conceitos fundamentais de programação shell e critérios extras de pontuação.
 
 **Grupo 6** - Disciplina: Shell Script  
-**Status:** ✅ Completo e Pronto para Apresentação  
+**Status:** Completo e Pronto para Apresentação  
 **Data:** 08/06/2026
 
 ---
 
-## 🎯 Objetivo
+## Objetivo
 
 Desenvolver um sistema de gerenciamento de consultas que demonstre:
 - Manipulação de variáveis
@@ -21,7 +21,7 @@ Desenvolver um sistema de gerenciamento de consultas que demonstre:
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 
 ### Pré-requisitos
 - Linux/Unix ou **Git Bash/WSL no Windows**
@@ -38,32 +38,32 @@ bash clinica.sh
 
 ---
 
-## ✨ Funcionalidades Principais
+## Funcionalidades Principais
 
 | # | Funcionalidade | Status | Descrição |
 |---|---|---|---|
-| 1 | **Agendar Consulta** | ✅ | Registra paciente, médico, data e horário com validações |
-| 2 | **Listar Consultas** | ✅ | Exibe todas as consultas em tabela formatada |
-| 3 | **Pesquisar Consulta** | ✅ | Busca por paciente, médico ou data (case-insensitive) |
-| 4 | **Cancelar Consulta** | ✅ | Remove consulta com confirmação e backup automático |
-| 5 | **Relatório** | ✅ | Estatísticas completas e exportação em arquivo |
+| 1 | **Agendar Consulta** | Sim | Registra paciente, médico, data e horário com validações |
+| 2 | **Listar Consultas** | Sim | Exibe todas as consultas em tabela formatada |
+| 3 | **Pesquisar Consulta** | Sim | Busca por paciente, médico ou data (case-insensitive) |
+| 4 | **Cancelar Consulta** | Sim | Remove consulta com confirmação e backup automático |
+| 5 | **Relatório** | Sim | Estatísticas completas e exportação em arquivo |
 
 ---
 
-## ⭐ Critérios de Pontuação Extras Implementados
+## Critérios de Pontuação Extras Implementados
 
 ```
-🥉 BRONZE    (+0,5 ponto)  - Confirmação antes de cancelar    ✅
-🥈 PRATA     (+1,0 ponto)  - Autenticação por senha           ✅
-🥇 OURO      (+1,5 pontos) - Backup automático ao sair        ✅
-💎 DIAMANTE  (+2,0 pontos) - Submenus + Estatísticas          ✅
+BRONZE    (+0,5 ponto)  - Confirmação antes de cancelar
+PRATA     (+1,0 ponto)  - Autenticação por senha
+OURO      (+1,5 pontos) - Backup automático ao sair
+DIAMANTE  (+2,0 pontos) - Submenus + Estatísticas
 
-TOTAL: +5,0 pontos extras! 🎉
+TOTAL: +5,0 pontos extras!
 ```
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 Projeto_Shell_Consulta/
@@ -72,14 +72,14 @@ Projeto_Shell_Consulta/
 ├── .gitignore                         # Configuração Git
 │
 └── Clinica/
-    ├── clinica.sh                     # ⭐ SCRIPT PRINCIPAL (executável)
+   ├── clinica.sh                     # SCRIPT PRINCIPAL (executável)
     │
-    ├── 📚 DOCUMENTAÇÃO
+   ├── DOCUMENTAÇÃO
     ├── DOCUMENTACAO.md                # Guia de uso completo
     ├── FLUXOGRAMA.md                  # Fluxogramas visuais do sistema
     ├── RELATORIO_TECNICO.md           # Análise técnica detalhada
     │
-    ├── 📂 DIRETÓRIOS DE DADOS
+   ├── DIRETÓRIOS DE DADOS
     ├── consultas/                     # Armazena dados de consultas
     ├── relatorios/                    # Armazena relatórios gerados
     └── backup/                        # Armazena backups automáticos
@@ -89,27 +89,27 @@ Projeto_Shell_Consulta/
 
 ## 🔍 Demonstração Rápida
 
-### 1️⃣ Login
+### 1. Login
 ```
 Digite a senha para acessar o sistema: ****
-✓ Autenticação bem-sucedida!
+Autenticação bem-sucedida!
 ```
 
-### 2️⃣ Menu Principal
+### 2. Menu Principal
 ```
-SISTEMA DE AGENDAMENTO DE CONSULTAS 🏥
+SISTEMA DE AGENDAMENTO DE CONSULTAS
 
 Escolha uma opção:
 
-  1 - Agendar consulta
-  2 - Listar consultas
-  3 - Pesquisar consulta
-  4 - Cancelar consulta
-  5 - Relatório
-  0 - Sair
+   1 - Agendar consulta
+   2 - Listar consultas
+   3 - Pesquisar consulta
+   4 - Cancelar consulta
+   5 - Relatório
+   0 - Sair
 ```
 
-### 3️⃣ Agendar Consulta
+### 3. Agendar Consulta
 ```
 === AGENDAR CONSULTA ===
 
@@ -118,14 +118,14 @@ Nome do médico: Dr. Carlos
 Data (DD/MM/YYYY): 25/12/2026
 Horário (HH:MM): 14:30
 
-✓ Consulta agendada com sucesso!
+Consulta agendada com sucesso!
   Paciente: João Silva
   Médico: Dr. Carlos
   Data: 25/12/2026
   Horário: 14:30
 ```
 
-### 4️⃣ Listar Consultas
+### 4. Listar Consultas
 ```
 ╔═══╦════════════════════╦════════════════════╦═══════════╦═════════╗
 ║ # ║ Paciente           ║ Médico             ║ Data      ║ Horário ║
@@ -137,7 +137,7 @@ Horário (HH:MM): 14:30
 
 ---
 
-## 📊 Tecnologias e Técnicas Utilizadas
+## Tecnologias e Técnicas Utilizadas
 
 ### Shell Script Avançado
 - **Variáveis e Arrays:** Gerenciamento de estado e dados
@@ -161,7 +161,7 @@ Horário (HH:MM): 14:30
 
 ---
 
-## 📋 Checklist de Requisitos
+## Checklist de Requisitos
 
 ### Obrigatórios
 - [x] Variáveis de ambiente e locais
@@ -175,10 +175,10 @@ Horário (HH:MM): 14:30
 - [x] Estrutura de diretórios: consultas/, relatorios/, backup/
 
 ### Bônus (Pontuação Extra)
-- [x] 🥉 Bronze: Confirmação antes de excluir
-- [x] 🥈 Prata: Autenticação por senha
-- [x] 🥇 Ouro: Backup automático
-- [x] 💎 Diamante: Submenus + Estatísticas
+ - [x] Bronze: Confirmação antes de excluir
+ - [x] Prata: Autenticação por senha
+ - [x] Ouro: Backup automático
+ - [x] Diamante: Submenus + Estatísticas
 
 ### Entrega
 - [x] Fluxograma (FLUXOGRAMA.md)
@@ -216,7 +216,7 @@ Horário (HH:MM): 14:30
 
 ---
 
-## 🎓 Conceitos Aprendidos
+## Conceitos Aprendidos
 
 Este projeto demonstra:
 - Programação estruturada em Shell Script
@@ -229,5 +229,5 @@ Este projeto demonstra:
 
 ---
 
-**Desenvolvido com ❤️ em Shell Script**  
-**Pronto para apresentação e avaliação!** 🚀
+**Desenvolvido em Shell Script**  
+**Pronto para apresentação e avaliação!**

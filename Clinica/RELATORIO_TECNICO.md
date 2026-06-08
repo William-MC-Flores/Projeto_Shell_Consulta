@@ -1,27 +1,27 @@
-# 🔧 RELATÓRIO TÉCNICO - IMPLEMENTAÇÃO
+# RELATÓRIO TÉCNICO - IMPLEMENTAÇÃO
 
-## 📋 Sumário Executivo
+## Sumário Executivo
 
 Sistema de Agendamento de Consultas em Shell Script com funcionalidades completas de gerenciamento, incluindo todas as requisições obrigatórias e critérios extras de pontuação.
 
 ---
 
-## ✅ Elementos Obrigatórios Implementados
+## Elementos Obrigatórios Implementados
 
 | Elemento | Status | Localização |
 |----------|--------|-------------|
-| Variáveis | ✅ | Linhas 14-23 |
-| Entrada de dados | ✅ | `read`, `read -sp` |
-| Saída de dados | ✅ | `echo -e` com cores |
-| Estrutura condicional | ✅ | `if/then/else/fi` |
-| Estrutura de repetição | ✅ | `while true`, `for`, loops |
-| Menu interativo | ✅ | Loop com `case/esac` |
+| Variáveis | Sim | Linhas 14-23 |
+| Entrada de dados | Sim | `read`, `read -sp` |
+| Saída de dados | Sim | `echo -e` com cores |
+| Estrutura condicional | Sim | `if/then/else/fi` |
+| Estrutura de repetição | Sim | `while true`, `for`, loops |
+| Menu interativo | Sim | Loop com `case/esac` |
 
 ---
 
-## 🎯 Funcionalidades Implementadas
+## Funcionalidades Implementadas
 
-### 1. Agendar Consulta ✅
+### 1. Agendar Consulta
 **Funções relacionadas:**
 - `validar_data()` - Valida formato DD/MM/YYYY
 - `validar_horario()` - Valida formato HH:MM  
@@ -37,7 +37,7 @@ Sistema de Agendamento de Consultas em Shell Script com funcionalidades completa
 6. Exibir confirmação com dados
 ```
 
-### 2. Listar Consultas ✅
+### 2. Listar Consultas
 **Função:** `listar_consultas()` (linhas ~183-210)
 
 **Lógica:**
@@ -60,7 +60,7 @@ Sistema de Agendamento de Consultas em Shell Script com funcionalidades completa
 ╚═══╩════════════════════╩════════════════════╩═══════════╩═════════╝
 ```
 
-### 3. Pesquisar Consulta ✅
+### 3. Pesquisar Consulta
 **Função:** `pesquisar_consulta()` (linhas ~213-266)
 
 **Lógica:**
@@ -81,7 +81,7 @@ awk -F'|' -v campo=$campo -v termo="$termo_busca" \
     'tolower($campo) ~ tolower(termo) { print }'
 ```
 
-### 4. Cancelar Consulta ✅
+### 4. Cancelar Consulta
 **Função:** `cancelar_consulta()` (linhas ~269-320)
 
 **Lógica:**
@@ -103,7 +103,7 @@ awk -F'|' -v campo=$campo -v termo="$termo_busca" \
 backup_dir/consultas_canceladas_20260608_140530.bak
 ```
 
-### 5. Relatório ✅
+### 5. Relatório
 **Função:** `gerar_relatorio()` (linhas ~323-430)
 
 **Estatísticas (DIAMANTE):**
@@ -116,15 +116,15 @@ backup_dir/consultas_canceladas_20260608_140530.bak
 
 ---
 
-## ⭐ Critérios de Pontuação Extras
+## Critérios de Pontuação Extras
 
-### 🥉 BRONZE (+0,5 pontos) ✅
+### BRONZE (+0,5 pontos)
 **Confirmação antes de excluir**
 - Localização: `cancelar_consulta()` linhas ~310-312
 - Implementação: `read -p "Deseja realmente remover..."`
 - Backup automático das consultas canceladas
 
-### 🥈 PRATA (+1,0 ponto) ✅
+### PRATA (+1,0 ponto)
 **Autenticação por senha**
 - Localização: `autenticar_usuario()` linhas ~30-71
 - Senha padrão: "1234"
@@ -132,7 +132,7 @@ backup_dir/consultas_canceladas_20260608_140530.bak
 - Entrada segura com `read -sp` (sem eco)
 - Chamada em `main()` antes de inicializar ambiente
 
-### 🥇 OURO (+1,5 pontos) ✅
+### OURO (+1,5 pontos)
 **Backup automático ao sair**
 - Localização: `backup_automatico()` linhas ~433-443
 - Acionado na opção 0 (Sair)
@@ -140,7 +140,7 @@ backup_dir/consultas_canceladas_20260608_140530.bak
 - Valida se dados existem antes de fazer backup
 - Armazenado em `backup/backup_consultas_*.txt`
 
-### 💎 DIAMANTE (+2,0 pontos) ✅
+### DIAMANTE (+2,0 pontos)
 **Submenus e Estatísticas**
 - Localização: `pesquisar_consulta()` e `gerar_relatorio()`
 - Submenu de filtros em pesquisa (Paciente/Médico/Data)
@@ -232,7 +232,7 @@ tput cols                       # Largura do terminal
 
 ---
 
-## 📁 Estrutura de Arquivos
+## Estrutura de Arquivos
 
 ```
 Projeto_Shell_Consulta/
@@ -262,14 +262,14 @@ Projeto_Shell_Consulta/
 
 ---
 
-## 🔒 Validações Implementadas
+## Validações Implementadas
 
 ### Validação de Dados de Entrada
 
 ```bash
 # Campos obrigatórios vazios
 if [ -z "$paciente" ]; then
-    echo -e "${RED}✗ Nome do paciente não pode estar vazio!${NC}"
+    echo -e "${RED}Nome do paciente não pode estar vazio!${NC}"
     return
 fi
 
@@ -334,13 +334,13 @@ NC='\033[0m'          # Sem cor (reset)
 **Uso:**
 ```bash
 echo -e "${RED}Erro!${NC}"
-echo -e "${GREEN}✓ Sucesso!${NC}"
+echo -e "${GREEN}Sucesso!${NC}"
 echo -e "${BLUE}║ Informação ${NC}"
 ```
 
 ---
 
-## 🔐 Fluxo de Segurança
+## Fluxo de Segurança
 
 ### Autenticação
 ```
@@ -365,7 +365,7 @@ echo -e "${BLUE}║ Informação ${NC}"
 
 ---
 
-## 📊 Complexidade do Código
+## Complexidade do Código
 
 | Função | Linhas | Complexidade |
 |--------|--------|--------------|
@@ -381,7 +381,7 @@ echo -e "${BLUE}║ Informação ${NC}"
 
 ---
 
-## 🚀 Performance e Otimizações
+## Performance e Otimizações
 
 ### Positivas
 - Uso de `grep` para buscas rápidas
@@ -400,13 +400,13 @@ echo -e "${BLUE}║ Informação ${NC}"
 ## 🐛 Tratamento de Erros
 
 ### Erros Tratados
-1. ✅ Campos vazios
-2. ✅ Formato de data inválido
-3. ✅ Formato de horário inválido
-4. ✅ Opção de menu inválida
-5. ✅ Falha na autenticação
-6. ✅ Dados não encontrados
-7. ✅ Arquivo não encontrado
+1. Campos vazios
+2. Formato de data inválido
+3. Formato de horário inválido
+4. Opção de menu inválida
+5. Falha na autenticação
+6. Dados não encontrados
+7. Arquivo não encontrado
 
 ### Recovery
 - Mensagens descritivas em vermelho
@@ -435,7 +435,7 @@ echo -e "${BLUE}║ Informação ${NC}"
 
 ---
 
-## ✨ Destaques Técnicos
+## Destaques Técnicos
 
 ### Inovações
 - Menu com submenu integrado (pesquisa)
@@ -453,7 +453,7 @@ echo -e "${BLUE}║ Informação ${NC}"
 
 ---
 
-## 📚 Referências Utilizadas
+## Referências Utilizadas
 
 ### Comandos Unix/Linux
 - `bash` - Shell principal
@@ -471,18 +471,18 @@ echo -e "${BLUE}║ Informação ${NC}"
 
 ---
 
-## 🎓 Conceitos Demonstrados
+## Conceitos Demonstrados
 
-- ✅ Variáveis e escopo local
-- ✅ Funções e modularização
-- ✅ Estruturas de controle (if/case/while)
-- ✅ Entrada/saída formatada
-- ✅ Processamento de arquivos
-- ✅ Tratamento de erros
-- ✅ Validação de dados
-- ✅ Backup e recuperação
-- ✅ Segurança (autenticação)
-- ✅ Interface amigável
+ - Variáveis e escopo local
+ - Funções e modularização
+ - Estruturas de controle (if/case/while)
+ - Entrada/saída formatada
+ - Processamento de arquivos
+ - Tratamento de erros
+ - Validação de dados
+ - Backup e recuperação
+ - Segurança (autenticação)
+ - Interface amigável
 
 ---
 

@@ -1,4 +1,4 @@
-# 📊 Fluxograma do Sistema de Agendamento de Consultas
+# Fluxograma do Sistema de Agendamento de Consultas
 
 ## Fluxo Principal
 
@@ -10,7 +10,7 @@
                │
                ▼
         ┌──────────────┐
-        │   LOGIN 🔐   │
+      │   LOGIN      │
         │ Senha: 1234  │
         └──────┬───────┘
                │
@@ -75,7 +75,7 @@
                     ▼
           ┌──────────────────────┐
           │ Encerrar Sistema     │
-          │ Até logo! 👋         │
+          │ Até logo!            │
           └──────────────────────┘
 ```
 
@@ -150,7 +150,7 @@
                               └────────────┬───────────────┘
                                            │
                               ┌────────────▼─────────────┐
-                              │ Exibir Confirmação ✓     │
+                              │ Exibir Confirmação       │
                               │ e Dados da Consulta      │
                               └──────────────┬──────────┘
                                              │
@@ -207,7 +207,7 @@
    └────────┬──────────────────┘
             │
    ┌────────▼──────────────────┐
-   │ Exibir Confirmação ✓      │
+   │ Exibir Confirmação        │
    │ Consulta Cancelada!       │
    └────────┬──────────────────┘
             │

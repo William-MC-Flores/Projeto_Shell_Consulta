@@ -1,12 +1,12 @@
-# 🏥 SISTEMA DE AGENDAMENTO DE CONSULTAS
+# SISTEMA DE AGENDAMENTO DE CONSULTAS
 
-## 📖 Documentação do Sistema
+## Documentação do Sistema
 
 Sistema completo de gerenciamento de consultas médicas desenvolvido em Shell Script, com funcionalidades de agendamento, listagem, pesquisa, cancelamento e geração de relatórios.
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 
 ### Pré-requisitos
 - Sistema operacional Unix/Linux ou Git Bash no Windows
@@ -29,7 +29,7 @@ chmod +x Clinica/clinica.sh
 
 ---
 
-## 🔐 Autenticação
+## Autenticação
 
 **Senha padrão:** `1234`
 
@@ -37,21 +37,21 @@ O sistema solicita autenticação ao iniciar. Você tem até 3 tentativas para i
 
 ---
 
-## 📋 Funcionalidades Principais
+## Funcionalidades Principais
 
-### 1️⃣ Agendar Consulta
+### 1 - Agendar Consulta
 - Registrar paciente, médico, data e horário
 - Validação automática de formato (DD/MM/YYYY para data, HH:MM para horário)
 - Validação de campos obrigatórios
 - Confirmação visual dos dados agendados
 
-### 2️⃣ Listar Consultas
+### 2 - Listar Consultas
 - Exibir todas as consultas agendadas em tabela formatada
 - Numeração sequencial
 - Campos: Paciente, Médico, Data, Horário
 - Mensagem se nenhuma consulta existir
 
-### 3️⃣ Pesquisar Consulta
+### 3 - Pesquisar Consulta
 - Busca por três filtros:
   - Paciente
   - Médico  
@@ -60,13 +60,13 @@ O sistema solicita autenticação ao iniciar. Você tem até 3 tentativas para i
 - Exibição dos resultados em tabela
 - Contagem total de resultados
 
-### 4️⃣ Cancelar Consulta
+### 4 - Cancelar Consulta
 - Localizar consulta por paciente
 - Exibir dados antes de cancelar
 - Solicitar confirmação [s/n] (BRONZE)
 - Backup automático de consultas canceladas
 
-### 5️⃣ Relatório
+### 5 - Relatório
 - **Estatísticas gerais:**
   - Total de consultas
   - Contagem por médico
@@ -78,20 +78,20 @@ O sistema solicita autenticação ao iniciar. Você tem até 3 tentativas para i
 
 ---
 
-## ⭐ Critérios de Pontuação Extras Implementados
+## Critérios de Pontuação Extras Implementados
 
 | Nível | Pontos | Status | Requisito |
 |-------|--------|--------|-----------|
-| 🥉 Bronze | +0,5 | ✅ | Confirmação antes de excluir registro |
-| 🥈 Prata | +1,0 | ✅ | Autenticação por senha no início |
-| 🥇 Ouro | +1,5 | ✅ | Backup automático dos dados ao sair |
-| 💎 Diamante | +2,0 | ✅ | Submenus + Estatísticas completas |
+| Bronze | +0,5 | Sim | Confirmação antes de excluir registro |
+| Prata | +1,0 | Sim | Autenticação por senha no início |
+| Ouro | +1,5 | Sim | Backup automático dos dados ao sair |
+| Diamante | +2,0 | Sim | Submenus + Estatísticas completas |
 
 **Total de Pontos Extras: +5,0 pontos**
 
 ---
 
-## 📁 Estrutura de Diretórios
+## Estrutura de Diretórios
 
 ```
 Clinica/
@@ -128,15 +128,15 @@ Maria Santos|Dra. Ana|26/12/2026|09:00
 
 ## 🛡️ Validações Implementadas
 
-- ✅ Campos obrigatórios não podem estar vazios
-- ✅ Data deve estar no formato DD/MM/YYYY
-- ✅ Dias devem estar entre 01-31
-- ✅ Meses devem estar entre 01-12
-- ✅ Horário deve estar no formato HH:MM
-- ✅ Horas devem estar entre 00-23
-- ✅ Minutos devem estar entre 00-59
-- ✅ Menus com validação de opções
-- ✅ Confirmação antes de cancelar consultas
+ - Campos obrigatórios não podem estar vazios
+ - Data deve estar no formato DD/MM/YYYY
+ - Dias devem estar entre 01-31
+ - Meses devem estar entre 01-12
+ - Horário deve estar no formato HH:MM
+ - Horas devem estar entre 00-23
+ - Minutos devem estar entre 00-59
+ - Menus com validação de opções
+ - Confirmação antes de cancelar consultas
 
 ---
 
@@ -144,17 +144,17 @@ Maria Santos|Dra. Ana|26/12/2026|09:00
 
 O sistema utiliza:
 - **Cores ANSI** para melhor legibilidade
-  - 🟢 Verde: Mensagens de sucesso
-  - 🔵 Azul: Informações e bordas
-  - 🟡 Amarelo: Avisos
-  - 🔴 Vermelho: Erros
+   - Verde: Mensagens de sucesso
+   - Azul: Informações e bordas
+   - Amarelo: Avisos
+   - Vermelho: Erros
 - **Tabelas formatadas** com bordas Unicode
 - **Menus numerados** para fácil navegação
 - **Clear screen** para melhor organização
 
 ---
 
-## 🔧 Variáveis Importantes
+## Variáveis Importantes
 
 | Variável | Descrição |
 |----------|-----------|
@@ -192,7 +192,7 @@ O sistema implementa:
 
 ---
 
-## 🚀 Melhorias Futuras
+## Melhorias Futuras
 
 - [ ] Importar consultas de arquivo
 - [ ] Editar consultas existentes
@@ -211,7 +211,7 @@ O sistema implementa:
 
 ---
 
-## 📋 Checklist de Entrega
+## Checklist de Entrega
 
 - [x] Fluxograma do sistema
 - [x] Código-fonte comentado
