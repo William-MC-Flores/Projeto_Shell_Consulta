@@ -44,6 +44,63 @@ inicializar_ambiente() {
 }
 
 ################################################################################
+# FUNÇÃO: Validar data (DD/MM/YYYY)
+################################################################################
+validar_data() {
+    local data=$1
+    
+    # Validar formato DD/MM/YYYY
+    if [[ ! $data =~ ^[0-9]{2}/[0-9]{2}/[0-9]{4}$ ]]; then
+        return 1
+    fi
+    
+    # Extrair dia, mês e ano
+    local dia=$(echo $data | cut -d'/' -f1)
+    local mes=$(echo $data | cut -d'/' -f2)
+    local ano=$(echo $data | cut -d'/' -f3)
+    
+    # Validar intervalo de mês
+    if [ "$mes" -lt 1 ] || [ "$mes" -gt 12 ]; then
+        return 1
+    fi
+    
+    # Validar intervalo de dia
+    if [ "$dia" -lt 1 ] || [ "$dia" -gt 31 ]; then
+        return 1
+    fi
+    
+    return 0
+}
+
+################################################################################
+# FUNÇÃO: Validar horário (HH:MM)
+################################################################################
+validar_horario() {
+    local horario=$1
+    
+    # Validar formato HH:MM
+    if [[ ! $horario =~ ^[0-9]{2}:[0-9]{2}$ ]]; then
+        return 1
+    fi
+    
+    # Extrair hora e minuto
+    local hora=$(echo $horario | cut -d':' -f1)
+    local minuto=$(echo $horario | cut -d':' -f2)
+    
+    # Validar intervalo de hora (0-23)
+    if [ "$hora" -lt 0 ] || [ "$hora" -gt 23 ]; then
+        return 1
+    fi
+    
+    # Validar intervalo de minuto (0-59)
+    if [ "$minuto" -lt 0 ] || [ "$minuto" -gt 59 ]; then
+        return 1
+    fi
+    
+    return 0
+}
+
+################################################################################
 # FUNÇÃO: Exibir menu principal
 ################################################################################
 exibir_menu() {
@@ -73,16 +130,51 @@ agendar_consulta() {
     echo -e "${GREEN}=== AGENDAR CONSULTA ===${NC}"
     echo ""
     
+    # Leitura do nome do paciente
     read -p "Nome do paciente: " paciente
+    if [ -z "$paciente" ]; then
+        echo -e "${RED}✗ Nome do paciente não pode estar vazio!${NC}"
+        read -p "Pressione ENTER para continuar..."
+        return
+    fi
+    
+    # Leitura do nome do médico
     read -p "Nome do médico: " medico
-    read -p "Data (DD/MM/YYYY): " data
-    read -p "Horário (HH:MM): " horario
+    if [ -z "$medico" ]; then
+        echo -e "${RED}✗ Nome do médico não pode estar vazio!${NC}"
+        read -p "Pressione ENTER para continuar..."
+        return
+    fi
     
-    # TODO: Adicionar validações
+    # Leitura e validação da data
+    while true; do
+        read -p "Data (DD/MM/YYYY): " data
+        if validar_data "$data"; then
+            break
+        else
+            echo -e "${RED}✗ Formato de data inválido! Use DD/MM/YYYY${NC}"
+        fi
+    done
     
+    # Leitura e validação do horário
+    while true; do
+        read -p "Horário (HH:MM): " horario
+        if validar_horario "$horario"; then
+            break
+        else
+            echo -e "${RED}✗ Formato de horário inválido! Use HH:MM (00:00 a 23:59)${NC}"
+        fi
+    done
+    
+    # Salvar consulta no arquivo
     echo "$paciente|$medico|$data|$horario" >> "$ARQUIVO_CONSULTAS"
     
     echo -e "${GREEN}✓ Consulta agendada com sucesso!${NC}"
+    echo "  Paciente: $paciente"
+    echo "  Médico: $medico"
+    echo "  Data: $data"
+    echo "  Horário: $horario"
+    echo ""
     read -p "Pressione ENTER para continuar..."
 }
 
