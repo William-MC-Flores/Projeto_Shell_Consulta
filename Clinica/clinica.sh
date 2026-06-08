@@ -338,21 +338,109 @@ cancelar_consulta() {
 }
 
 ################################################################################
-# FUNÇÃO: Gerar relatório
+# FUNÇÃO: Gerar relatório com estatísticas (DIAMANTE)
 ################################################################################
 gerar_relatorio() {
-    echo -e "${GREEN}=== RELATÓRIO ===${NC}"
+    echo -e "${GREEN}=== RELATÓRIO DE CONSULTAS ===${NC}"
     echo ""
     
     total=$(wc -l < "$ARQUIVO_CONSULTAS" 2>/dev/null || echo 0)
     
-    echo "Total de consultas agendadas: $total"
+    if [ "$total" -eq 0 ]; then
+        echo -e "${YELLOW}Nenhuma consulta agendada no sistema.${NC}"
+        echo ""
+        read -p "Pressione ENTER para continuar..."
+        return
+    fi
+    
+    echo -e "${BLUE}╔════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║                 ESTATÍSTICAS GERAIS                    ║${NC}"
+    echo -e "${BLUE}╚════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "${YELLOW}Total de consultas agendadas:${NC} ${GREEN}$total${NC}"
     echo ""
     
-    if [ "$total" -gt 0 ]; then
-        echo -e "${BLUE}Detalhamento das consultas:${NC}"
-        echo "────────────────────────────────────────────────────────"
-        cat "$ARQUIVO_CONSULTAS" | nl -nln -w2 -s'. '
+    # Contagem por médico
+    echo -e "${BLUE}CONSULTAS POR MÉDICO:${NC}"
+    echo "────────────────────────────────────────────────────────"
+    cut -d'|' -f2 "$ARQUIVO_CONSULTAS" | sort | uniq -c | \
+        while read count medico; do
+            printf "  %-30s: %3d consulta(s)\n" "$medico" "$count"
+        done
+    echo ""
+    
+    # Médico com mais consultas
+    echo -e "${BLUE}MÉDICO COM MAIS CONSULTAS:${NC}"
+    medico_top=$(cut -d'|' -f2 "$ARQUIVO_CONSULTAS" | sort | uniq -c | sort -rn | head -1 | awk '{$1=""; print $0}' | sed 's/^ //')
+    count_top=$(cut -d'|' -f2 "$ARQUIVO_CONSULTAS" | sort | uniq -c | sort -rn | head -1 | awk '{print $1}')
+    echo -e "  ${GREEN}$medico_top${NC} ($count_top consultas)"
+    echo ""
+    
+    # Consultas por data (primeiras 10 datas)
+    echo -e "${BLUE}CONSULTAS PRÓXIMAS (por data):${NC}"
+    echo "────────────────────────────────────────────────────────"
+    cut -d'|' -f3 "$ARQUIVO_CONSULTAS" | sort -u | head -5 | \
+        while read data; do
+            count=$(grep -c "|$data|" "$ARQUIVO_CONSULTAS")
+            printf "  Data: %-10s - %d consulta(s)\n" "$data" "$count"
+        done
+    echo ""
+    
+    # Detalhamento completo
+    echo -e "${BLUE}╔════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║            DETALHAMENTO COMPLETO DAS CONSULTAS         ║${NC}"
+    echo -e "${BLUE}╚════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "${BLUE}╔═══╦════════════════════╦════════════════════╦═══════════╦═════════╗${NC}"
+    echo -e "${BLUE}║ # ║ Paciente           ║ Médico             ║ Data      ║ Horário ║${NC}"
+    echo -e "${BLUE}╠═══╬════════════════════╬════════════════════╬═══════════╬═════════╣${NC}"
+    
+    contador=1
+    cat "$ARQUIVO_CONSULTAS" | while IFS='|' read -r paciente medico data horario; do
+        paciente_fmt=$(printf "%-18s" "$paciente" | cut -c1-18)
+        medico_fmt=$(printf "%-18s" "$medico" | cut -c1-18)
+        
+        printf "${BLUE}║${NC} %1d ${BLUE}║${NC} %-18s ${BLUE}║${NC} %-18s ${BLUE}║${NC} %-9s ${BLUE}║${NC} %-7s ${BLUE}║${NC}\n" \
+            "$contador" "$paciente_fmt" "$medico_fmt" "$data" "$horario"
+        
+        contador=$((contador + 1))
+    done
+    
+    echo -e "${BLUE}╚═══╩════════════════════╩════════════════════╩═══════════╩═════════╝${NC}"
+    echo ""
+    
+    # Salvar relatório em arquivo
+    read -p "Deseja salvar este relatório em arquivo? [s/n]: " salvar_relatorio
+    
+    if [ "$salvar_relatorio" = "s" ] || [ "$salvar_relatorio" = "S" ]; then
+        data_relatorio=$(date +%Y%m%d_%H%M%S)
+        arquivo_relatorio="$RELATORIOS_DIR/relatorio_$data_relatorio.txt"
+        
+        {
+            echo "═══════════════════════════════════════════════════════"
+            echo "RELATÓRIO DE CONSULTAS - Gerado em: $(date '+%d/%m/%Y %H:%M:%S')"
+            echo "═══════════════════════════════════════════════════════"
+            echo ""
+            echo "ESTATÍSTICAS GERAIS"
+            echo "──────────────────────────────────────────────────────"
+            echo "Total de consultas: $total"
+            echo ""
+            echo "CONSULTAS POR MÉDICO:"
+            cut -d'|' -f2 "$ARQUIVO_CONSULTAS" | sort | uniq -c | \
+                while read count medico; do
+                    printf "  %-30s: %3d consulta(s)\n" "$medico" "$count"
+                done
+            echo ""
+            echo "DETALHAMENTO DAS CONSULTAS:"
+            echo "──────────────────────────────────────────────────────"
+            cat "$ARQUIVO_CONSULTAS" | nl -nln -w3 -s'. ' -v 1 | \
+                while read num paciente medico data horario; do
+                    printf "%s Paciente: %s | Médico: %s | Data: %s | Horário: %s\n" \
+                        "$num" "$paciente" "$medico" "$data" "$horario"
+                done
+        } > "$arquivo_relatorio"
+        
+        echo -e "${GREEN}✓ Relatório salvo em: $arquivo_relatorio${NC}"
     fi
     
     echo ""
