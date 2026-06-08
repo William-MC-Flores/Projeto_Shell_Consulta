@@ -489,6 +489,21 @@ gerar_relatorio() {
 }
 
 ################################################################################
+# FUNÇÃO: Fazer backup automático dos dados (OURO +1.5)
+################################################################################
+backup_automatico() {
+    if [ -f "$ARQUIVO_CONSULTAS" ] && [ -s "$ARQUIVO_CONSULTAS" ]; then
+        data_backup=$(date +%Y%m%d_%H%M%S)
+        arquivo_backup="$BACKUP_DIR/backup_consultas_$data_backup.txt"
+        
+        cp "$ARQUIVO_CONSULTAS" "$arquivo_backup"
+        
+        echo -e "${GREEN}✓ Backup automático realizado com sucesso!${NC}"
+        echo "  Arquivo: $arquivo_backup"
+    fi
+}
+
+################################################################################
 # FUNÇÃO: Loop principal
 ################################################################################
 main() {
@@ -519,6 +534,9 @@ main() {
                 gerar_relatorio
                 ;;
             0)
+                echo -e "${BLUE}Realizando backup automático...${NC}"
+                backup_automatico
+                echo ""
                 echo -e "${BLUE}Encerrando sistema...${NC}"
                 echo -e "${GREEN}Até logo! 👋${NC}"
                 exit 0
