@@ -114,14 +114,14 @@ Suporte/RELATORIO_TECNICO.md (492 linhas)
 ### 1. Menu Interativo (Principal)
 ```
 ╔════════════════════════════════════════════════════════╗
-║        SISTEMA DE AGENDAMENTO DE CONSULTAS            ║
+║        SISTEMA DE CHAMADOS DE SUPORTE                 ║
 ╚════════════════════════════════════════════════════════╝
 
 Escolha uma opção:
-  1 - Agendar consulta
-  2 - Listar consultas
-  3 - Pesquisar consulta
-  4 - Cancelar consulta
+  1 - Abrir chamado
+  2 - Listar chamados
+  3 - Pesquisar chamado
+  4 - Fechar chamado
   5 - Relatório
   0 - Sair
 ```
@@ -145,15 +145,15 @@ Autenticação bem-sucedida!
 
 ### 4. Confirmação Segura (BRONZE)
 ```
-Consulta a ser cancelada:
+Chamado a ser fechado:
 ────────────────────────────────────────────────────────
-Paciente: João Silva
-Médico: Dr. Carlos
-Data: 25/12/2026
-Horário: 14:30
+Cliente: João Silva
+Problema: Problema na internet
+Data de Abertura: 10/06/2026
+Status: Aberto
 ────────────────────────────────────────────────────────
 
-Deseja realmente remover esta consulta? [s/n]:
+Deseja realmente fechar este chamado? [s/n]:
 ```
 
 ### 5. Relatório com Estatísticas (DIAMANTE)
@@ -162,16 +162,16 @@ Deseja realmente remover esta consulta? [s/n]:
 ║                 ESTATÍSTICAS GERAIS                    ║
 ╚════════════════════════════════════════════════════════╝
 
-Total de consultas agendadas: 5
+Total de chamados: 5
 
-CONSULTAS POR MÉDICO:
+CHAMADOS POR STATUS:
 ────────────────────────────────────────────────────────
-  Dr. Carlos                    : 2 consulta(s)
-  Dra. Ana                      : 2 consulta(s)
-  Dr. Jorge                     : 1 consulta(s)
+  Aberto                        :  2 chamado(s)
+  Em Andamento                  :  2 chamado(s)
+  Fechado                       :  1 chamado(s)
 
-MÉDICO COM MAIS CONSULTAS:
-  Dr. Carlos (2 consultas)
+STATUS MAIS FREQUENTE:
+  Aberto (2 chamados)
 
 [Opção para exportar em arquivo .txt]
 ```
