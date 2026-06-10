@@ -1,0 +1,353 @@
+# Fluxogramas - Sistema de Chamados de Suporte
+
+## Visão Geral
+
+Este documento apresenta os fluxogramas visuais do Sistema de Chamados de Suporte, representando todos os processos principais.
+
+---
+
+## Fluxo Principal
+
+```
+┌─────────────────────────────────┐
+│    INÍCIO DA APLICAÇÃO          │
+└──────────────┬──────────────────┘
+               │
+        ┌──────v──────┐
+        │ Autenticar  │
+        │  (Senha)    │
+        └──────┬──────┘
+               │
+        ┌──────v──────┐
+        │  Inicializar│
+        │ Ambiente    │
+        └──────┬──────┘
+               │
+        ┌──────v──────┐
+        │ MENU LOOP   │
+        └──────┬──────┘
+               │
+   ┌───┬───┬───┼───┬───┐
+   1   2   3   4   5   0
+   │   │   │   │   │   │
+   │   │   │   │   │   └─→ [Backup] → FIM
+   │   │   │   │   │
+   │   │   │   │   └─→ [Relatório] → Menu Loop
+   │   │   │   │
+   │   │   │   └─→ [Fechar Chamado] → Menu Loop
+   │   │   │
+   │   │   └─→ [Pesquisar] → Menu Loop
+   │   │
+   │   └─→ [Listar] → Menu Loop
+   │
+   └─→ [Abrir] → Menu Loop
+```
+
+---
+
+## Fluxo de Autenticação (PRATA +1.0)
+
+```
+┌─────────────────────────────────┐
+│   TELA DE LOGIN                 │
+│  Digite a senha: ****           │
+└──────────────┬──────────────────┘
+               │
+        ┌──────v──────────┐
+        │ Validar Senha   │
+        └──────┬─────┬────┘
+              /       \
+        Correto      Errado
+        /               \
+    Sim                   No
+    │                     │
+    │              ┌──────v──────┐
+    │              │ Decrement   │
+    │              │ Tentativas  │
+    │              └──────┬──────┘
+    │                     │
+    │              ┌──────v──────┐
+    │              │ Tentativas  │
+    │              │ > 0?        │
+    │              └──┬─────┬────┘
+    │               Yes     No
+    │                │       │
+    │                │   ┌───v────┐
+    │                │   │ ACESSO │
+    │                │   │ NEGADO │
+    │                │   │ FIM    │
+    │                │   └────────┘
+    │                │
+    │              ┌─v─────────┐
+    │              │ Voltar    │
+    │              │ Login     │
+    │              └───────────┘
+    │
+    └──→ ┌──────────────────┐
+         │ AUTENTICADO OK   │
+         │ CONTINUAR MENU   │
+         └──────────────────┘
+```
+
+---
+
+## Fluxo de Abertura de Chamado
+
+```
+┌──────────────────────────┐
+│  1 - ABRIR CHAMADO       │
+└──────────┬───────────────┘
+           │
+    ┌──────v─────────┐
+    │ Lê Nome Cliente │
+    │ Validado?       │
+    └────┬────┬──────┘
+        Sim   Não
+        │     └─→ [Erro] → Menu
+        │
+    ┌───v──────────────────┐
+    │ Lê Descrição Problema │
+    │ Validado?             │
+    └────┬────┬────────────┘
+        Sim   Não
+        │     └─→ [Erro] → Menu
+        │
+    ┌───v──────────────────┐
+    │ Lê Data (DD/MM/YYYY)  │
+    │ Validado?             │
+    └────┬────┬────────────┘
+        Sim   Não
+        │     └─→ [Erro] → Repete
+        │
+    ┌───v──────────────────┐
+    │ Set Status = "Aberto" │
+    └────┬─────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ Grava em chamados.txt  │
+    │ (cliente|problema|     │
+    │  data|status)          │
+    └────┬──────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ Exibe Confirmação     │
+    │ "Chamado Aberto OK"   │
+    └────┬──────────────────┘
+         │
+    └────→ [Volta Menu]
+```
+
+---
+
+## Fluxo de Fechamento de Chamado (BRONZE +0.5)
+
+```
+┌──────────────────────────┐
+│ 4 - FECHAR CHAMADO       │
+└──────────┬───────────────┘
+           │
+    ┌──────v────────────────┐
+    │ Lê Nome Cliente        │
+    │ Busca em chamados.txt  │
+    └────┬────┬─────────────┘
+        Encontrado  Não
+        │           └─→ [Erro] → Menu
+        │
+    ┌───v──────────────────┐
+    │ Exibe Chamado        │
+    │ Cliente              │
+    │ Problema             │
+    │ Data                 │
+    │ Status               │
+    └────┬─────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ Pede Confirmação      │
+    │ "Fechar? [s/n]"       │
+    └────┬────┬─────────────┘
+        Sim   Não
+        │     └─→ [Cancelado] → Menu
+        │
+    ┌───v──────────────────┐
+    │ Backup do Chamado    │
+    │ chamados_fechados_   │
+    │ [timestamp].bak      │
+    └────┬─────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ Remove de chamados.txt │
+    └────┬──────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ "Chamado Fechado OK"   │
+    └────┬──────────────────┘
+         │
+    └────→ [Volta Menu]
+```
+
+---
+
+## Fluxo de Pesquisa
+
+```
+┌──────────────────────────┐
+│ 3 - PESQUISAR CHAMADO    │
+└──────────┬───────────────┘
+           │
+    ┌──────v────────────────┐
+    │ Seleciona Critério:    │
+    │ 1: Cliente             │
+    │ 2: Problema            │
+    │ 3: Data                │
+    │ 4: Status              │
+    └────┬──────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ Lê Termo de Busca      │
+    └────┬──────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ awk/grep busca         │
+    │ campo específico       │
+    │ (case-insensitive)     │
+    └────┬────┬─────────────┘
+        Encontrado  Não
+        │           └─→ "Não encontrado" → Menu
+        │
+    ┌───v──────────────────┐
+    │ Exibe Resultados     │
+    │ em Tabela Formatada  │
+    │ Total de Registros   │
+    └────┬─────────────────┘
+         │
+    └────→ [Volta Menu]
+```
+
+---
+
+## Fluxo de Relatório (DIAMANTE +2.0)
+
+```
+┌──────────────────────────┐
+│ 5 - RELATÓRIO            │
+└──────────┬───────────────┘
+           │
+    ┌──────v────────────────┐
+    │ Contagem Total         │
+    │ Total = wc -l          │
+    └────┬────┬─────────────┘
+        0      > 0
+        │      │
+    ┌───v──┐  │
+    │ Vazio│  │
+    │Menu  │  │
+    └──────┘  │
+              │
+         ┌────v──────────────┐
+         │ Calcula Estatísticas
+         │ - Contagem/Status │
+         │ - Status Frequente│
+         │ - Contagem/Data   │
+         └────┬──────────────┘
+              │
+         ┌────v──────────────┐
+         │ Exibe:             │
+         │ - Total            │
+         │ - Por Status       │
+         │ - Status Popular   │
+         │ - Por Data         │
+         │ - Tabela Completa  │
+         └────┬──────────────┘
+              │
+         ┌────v────────────────┐
+         │ Salvar em Arquivo?  │
+         │ [s/n]               │
+         └────┬────┬───────────┘
+             Sim   Não
+             │     └─→ Menu
+             │
+         ┌───v────────────────┐
+         │ Cria:               │
+         │ relatorio_          │
+         │ [timestamp].txt     │
+         │ em relatorios/      │
+         └────┬───────────────┘
+              │
+         ┌────v────────────────┐
+         │ "Salvo com Sucesso"  │
+         └────┬───────────────┘
+              │
+         └────→ [Volta Menu]
+```
+
+---
+
+## Fluxo de Backup (OURO +1.5)
+
+```
+┌──────────────────────────┐
+│ 0 - SAIR / Backup Final  │
+└──────────┬───────────────┘
+           │
+    ┌──────v────────────────┐
+    │ Backup Automático      │
+    │ cp chamados.txt        │
+    │ backup_chamados_       │
+    │ [timestamp].txt        │
+    └────┬──────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ "Backup Realizado"     │
+    │ Arquivo: [path]        │
+    └────┬──────────────────┘
+         │
+    ┌────v──────────────────┐
+    │ "Encerrando Sistema"   │
+    │ "Até logo!"            │
+    └────┬──────────────────┘
+         │
+    ┌────v──────────────────┐
+    │         FIM            │
+    │     (exit 0)           │
+    └────────────────────────┘
+```
+
+---
+
+## Estados do Chamado
+
+```
+    ┌──────────┐
+    │  Aberto  │
+    └────┬─────┘
+         │
+         │ (Alteração manual futura)
+         │
+    ┌────v──────────────┐
+    │  Em Andamento      │
+    └────┬───────────────┘
+         │
+         │ (Fechamento)
+         │
+    ┌────v──────────────┐
+    │  Fechado           │
+    │  (Arquivo de Backup)
+    └────────────────────┘
+```
+
+---
+
+## Legenda de Símbolos
+
+| Símbolo | Significado |
+|---------|-------------|
+| ┌─┐ │ └─┘ | Início/Fim/Caixa de Processo |
+| ◇ | Decisão |
+| → | Fluxo/Direção |
+| [ ] | Dados de Entrada/Saída |
+
+---
+
+**Versão:** 1.0
+**Data:** 10/06/2026
+**Autor:** Grupo 4 - Disciplina Shell Script

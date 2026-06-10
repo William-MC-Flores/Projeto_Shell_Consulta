@@ -1,10 +1,10 @@
-# Sistema de Agendamento de Consultas - Shell Script
+# Sistema de Chamados de Suporte - Shell Script
 
 ## Visão Geral
 
-Sistema completo de gerenciamento de consultas médicas desenvolvido em **Shell Script**, implementando todos os conceitos fundamentais de programação shell e critérios extras de pontuação.
+Sistema completo de gerenciamento de chamados de suporte desenvolvido em **Shell Script**, implementando todos os conceitos fundamentais de programação shell e critérios extras de pontuação.
 
-**Grupo 6** - Disciplina: Shell Script  
+**Grupo 4** - Disciplina: Shell Script  
 **Status:** Completo e Pronto para Apresentação  
 **Data:** 08/06/2026
 
@@ -12,7 +12,7 @@ Sistema completo de gerenciamento de consultas médicas desenvolvido em **Shell 
 
 ## Objetivo
 
-Desenvolver um sistema de gerenciamento de consultas que demonstre:
+Desenvolver um sistema de gerenciamento de chamados de suporte que demonstre:
 - Manipulação de variáveis
 - Entrada/saída de dados
 - Estruturas condicionais e de repetição
@@ -30,8 +30,8 @@ Desenvolver um sistema de gerenciamento de consultas que demonstre:
 ### Execução
 
 ```bash
-cd Clinica/
-bash clinica.sh
+cd Suporte/
+bash suporte.sh
 ```
 
 **Senha padrão:** `1234`
@@ -42,10 +42,10 @@ bash clinica.sh
 
 | # | Funcionalidade | Status | Descrição |
 |---|---|---|---|
-| 1 | **Agendar Consulta** | Sim | Registra paciente, médico, data e horário com validações |
-| 2 | **Listar Consultas** | Sim | Exibe todas as consultas em tabela formatada |
-| 3 | **Pesquisar Consulta** | Sim | Busca por paciente, médico ou data (case-insensitive) |
-| 4 | **Cancelar Consulta** | Sim | Remove consulta com confirmação e backup automático |
+| 1 | **Abrir Chamado** | Sim | Registra cliente, problema, data com validações |
+| 2 | **Listar Chamados** | Sim | Exibe todos os chamados em tabela formatada |
+| 3 | **Pesquisar Chamado** | Sim | Busca por cliente, problema, data ou status (case-insensitive) |
+| 4 | **Fechar Chamado** | Sim | Remove chamado com confirmação e backup automático |
 | 5 | **Relatório** | Sim | Estatísticas completas e exportação em arquivo |
 
 ---
@@ -71,8 +71,8 @@ Projeto_Shell_Consulta/
 ├── RESUMO_ENTREGA.md                  # Resumo executivo do projeto
 ├── .gitignore                         # Configuração Git
 │
-└── Clinica/
-   ├── clinica.sh                     # SCRIPT PRINCIPAL (executável)
+└── Suporte/
+   ├── suporte.sh                     # SCRIPT PRINCIPAL (executável)
     │
    ├── DOCUMENTAÇÃO
     ├── DOCUMENTACAO.md                # Guia de uso completo
@@ -80,7 +80,7 @@ Projeto_Shell_Consulta/
     ├── RELATORIO_TECNICO.md           # Análise técnica detalhada
     │
    ├── DIRETÓRIOS DE DADOS
-    ├── consultas/                     # Armazena dados de consultas
+    ├── chamados/                      # Armazena dados de chamados
     ├── relatorios/                    # Armazena relatórios gerados
     └── backup/                        # Armazena backups automáticos
 ```
@@ -97,42 +97,41 @@ Autenticação bem-sucedida!
 
 ### 2. Menu Principal
 ```
-SISTEMA DE AGENDAMENTO DE CONSULTAS
+SISTEMA DE CHAMADOS DE SUPORTE
 
 Escolha uma opção:
 
-   1 - Agendar consulta
-   2 - Listar consultas
-   3 - Pesquisar consulta
-   4 - Cancelar consulta
+   1 - Abrir chamado
+   2 - Listar chamados
+   3 - Pesquisar chamado
+   4 - Fechar chamado
    5 - Relatório
    0 - Sair
 ```
 
-### 3. Agendar Consulta
+### 3. Abrir Chamado
 ```
-=== AGENDAR CONSULTA ===
+=== ABRIR CHAMADO ===
 
-Nome do paciente: João Silva
-Nome do médico: Dr. Carlos
-Data (DD/MM/YYYY): 25/12/2026
-Horário (HH:MM): 14:30
+Nome do cliente: João Silva
+Descrição do problema: Problema na internet
+Data de abertura (DD/MM/YYYY): 10/06/2026
 
-Consulta agendada com sucesso!
-  Paciente: João Silva
-  Médico: Dr. Carlos
-  Data: 25/12/2026
-  Horário: 14:30
+Chamado aberto com sucesso!
+  Cliente: João Silva
+  Problema: Problema na internet
+  Data de Abertura: 10/06/2026
+  Status: Aberto
 ```
 
-### 4. Listar Consultas
+### 4. Listar Chamados
 ```
-╔═══╦════════════════════╦════════════════════╦═══════════╦═════════╗
-║ # ║ Paciente           ║ Médico             ║ Data      ║ Horário ║
-╠═══╬════════════════════╬════════════════════╬═══════════╬═════════╣
-║ 1 ║ João Silva         ║ Dr. Carlos         ║ 25/12/2026║ 14:30   ║
-║ 2 ║ Maria Santos       ║ Dra. Patricia      ║ 25/12/2026║ 15:00   ║
-╚═══╩════════════════════╩════════════════════╩═══════════╩═════════╝
+╔═══╦════════════════════╦════════════════════╦═══════════╦═════════════════╗
+║ # ║ Cliente            ║ Problema           ║ Data      ║ Status          ║
+╠═══╬════════════════════╬════════════════════╬═══════════╬═════════════════╣
+║ 1 ║ João Silva         ║ Problema internet  ║ 10/06/2026║ Aberto          ║
+║ 2 ║ Maria Santos       ║ Erro no sistema    ║ 10/06/2026║ Em Andamento    ║
+╚═══╩════════════════════╩════════════════════╩═══════════╩═════════════════╝
 ```
 
 ---
@@ -170,9 +169,9 @@ Consulta agendada com sucesso!
 - [x] Estruturas condicionais (if/else/fi)
 - [x] Estruturas de repetição (while/for)
 - [x] Menu interativo com loop
-- [x] Agendar, Listar, Pesquisar, Cancelar, Relatório
-- [x] Dados: Paciente, Médico, Data, Horário
-- [x] Estrutura de diretórios: consultas/, relatorios/, backup/
+- [x] Abrir, Listar, Pesquisar, Fechar, Relatório
+- [x] Dados: Cliente, Problema, Data, Status
+- [x] Estrutura de diretórios: chamados/, relatorios/, backup/
 
 ### Bônus (Pontuação Extra)
  - [x] Bronze: Confirmação antes de excluir
@@ -189,9 +188,9 @@ Consulta agendada com sucesso!
 
 ---
 
-## 👥 Autores
+## Autores
 
-**Grupo 6 - Disciplina Shell Script**
+**Grupo 4 - Disciplina Shell Script**
 
 ---
 
@@ -199,7 +198,7 @@ Consulta agendada com sucesso!
 
 1. **Permissão de Execução:**
    ```bash
-   chmod +x Clinica/clinica.sh
+   chmod +x Suporte/suporte.sh
    ```
 
 2. **Ambiente WSL/Git Bash:**

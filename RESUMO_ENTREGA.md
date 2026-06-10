@@ -2,9 +2,9 @@
 
 ## Status do Projeto
 
-**Estado:** COMPLETO E PRONTO PARA PUSH  
-**Data de Conclusão:** 08/06/2026  
-**Grupo:** Grupo 6 - Sistema de Agendamento de Consultas  
+**Estado:** COMPLETO E PRONTO PARA PUSH
+**Data de Conclusão:** 10/06/2026
+**Grupo:** Grupo 4 - Sistema de Chamados de Suporte  
 
 ---
 
@@ -34,22 +34,22 @@ Ahead of origin/main: 12 commits
 - [x] Menu interativo (0-5 numerado)
 
 ### Funcionalidades Obrigatórias (100%)
-- [x] Agendar consulta
-- [x] Listar consultas
-- [x] Pesquisar consulta
-- [x] Cancelar consulta
+- [x] Abrir chamado
+- [x] Listar chamados
+- [x] Pesquisar chamado
+- [x] Fechar chamado
 - [x] Relatório
 
 ### Dados Gerenciados (100%)
-- [x] Paciente
-- [x] Médico
+- [x] Cliente
+- [x] Problema
 - [x] Data
-- [x] Horário
+- [x] Status
 
 ### Estrutura de Diretórios (100%)
 ```
-Clinica/
-├── consultas/
+Suporte/
+├── chamados/
 ├── relatorios/
 └── backup/
 ```
@@ -60,7 +60,7 @@ Clinica/
 
 | Nível | Pontos | Status | Implementação |
 |-------|--------|--------|----------------|
-| Bronze | +0,5 | Sim | Confirmação [s/n] antes de cancelar (linhas 310-312) |
+| Bronze | +0,5 | Sim | Confirmação [s/n] antes de fechar (linhas 310-312) |
 | Prata | +1,0 | Sim | Autenticação por senha (linhas 30-71) |
 | Ouro | +1,5 | Sim | Backup automático ao sair (linhas 433-443) |
 | Diamante | +2,0 | Sim | Submenus + Estatísticas (pesquisa e relatório) |
@@ -73,7 +73,7 @@ Clinica/
 
 ### Código Principal
 ```
-Clinica/clinica.sh (532 linhas)
+Suporte/suporte.sh (532 linhas)
 ├─ Menu interativo com loop principal
 ├─ 8 funções principais
 ├─ Validações robustas
@@ -83,22 +83,22 @@ Clinica/clinica.sh (532 linhas)
 
 ### Documentação
 ```
-Clinica/DOCUMENTACAO.md (225 linhas)
+Suporte/DOCUMENTACAO.md (225 linhas)
 ├─ Guia de execução
 ├─ Descrição de funcionalidades
 ├─ Estrutura de diretórios
 ├─ Validações implementadas
 └─ Checklist de entrega
 
-Clinica/FLUXOGRAMA.md (369 linhas)
+Suporte/FLUXOGRAMA.md (369 linhas)
 ├─ Fluxo principal
-├─ Fluxo de agendamento
-├─ Fluxo de cancelamento
+├─ Fluxo de abertura de chamado
+├─ Fluxo de fechamento
 ├─ Fluxo de pesquisa
 ├─ Fluxo de relatório
 └─ Diagrama de estados
 
-Clinica/RELATORIO_TECNICO.md (492 linhas)
+Suporte/RELATORIO_TECNICO.md (492 linhas)
 ├─ Sumário executivo
 ├─ Elementos obrigatórios
 ├─ Funcionalidades detalhadas
@@ -128,7 +128,7 @@ Escolha uma opção:
 
 ### 2. Autenticação por Senha (PRATA)
 ```
-SISTEMA DE AGENDAMENTO DE CONSULTAS - LOGIN
+SISTEMA DE CHAMADOS DE SUPORTE - LOGIN
 Digite a senha para acessar o sistema: ****
 Autenticação bem-sucedida!
 (até 3 tentativas)
@@ -136,11 +136,11 @@ Autenticação bem-sucedida!
 
 ### 3. Tabela Formatada (Listar/Pesquisar)
 ```
-╔═══╦════════════════════╦════════════════════╦═══════════╦═════════╗
-║ # ║ Paciente           ║ Médico             ║ Data      ║ Horário ║
-╠═══╬════════════════════╬════════════════════╬═══════════╬═════════╣
-║ 1 ║ João Silva         ║ Dr. Carlos         ║ 25/12/2026║ 14:30   ║
-╚═══╩════════════════════╩════════════════════╩═══════════╩═════════╝
+╔═══╦════════════════════╦════════════════════╦═══════════╦═════════════════╗
+║ # ║ Cliente            ║ Problema           ║ Data      ║ Status          ║
+╠═══╬════════════════════╬════════════════════╬═══════════╬═════════════════╣
+║ 1 ║ João Silva         ║ Problema internet  ║ 10/06/2026║ Aberto          ║
+╚═══╩════════════════════╩════════════════════╩═══════════╩═════════════════╝
 ```
 
 ### 4. Confirmação Segura (BRONZE)
@@ -180,7 +180,7 @@ MÉDICO COM MAIS CONSULTAS:
 ```
 Realizando backup automático...
 Backup automático realizado com sucesso!
-  Arquivo: backup/backup_consultas_20260608_140530.txt
+  Arquivo: backup/backup_chamados_20260610_140530.txt
 
 Encerrando sistema...
 Até logo!
@@ -194,9 +194,7 @@ Até logo!
  - Formato de data DD/MM/YYYY
  - Dias entre 01-31
  - Meses entre 01-12
- - Formato de horário HH:MM
- - Horas entre 00-23
- - Minutos entre 00-59
+ - Status válido (Aberto, Em Andamento, Fechado)
  - Opções de menu válidas
  - Autenticação com limite de tentativas
  - Confirmação antes de cancelar
